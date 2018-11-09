@@ -11,3 +11,4 @@ at the top of Gui.py.
 Requires:
 * Python 3
 * wxPython
+* dump1090
