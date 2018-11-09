@@ -6,8 +6,8 @@
 import json, urllib.request, requests, bs4, colorsys, random, re
 from math import sin, cos, sqrt, atan2, radians, degrees
 
-HOME_LAT = 45.638751
-HOME_LON = -122.574054
+HOME_LAT = 0
+HOME_LON = 0
 EARTH_RADIUS = 6373.0 #KM
 
 class PlaneInfoRepo():
