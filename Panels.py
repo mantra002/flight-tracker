@@ -46,6 +46,7 @@ class MainPanel(wx.Panel):
             self.PlaneDataRepo.LoadJsonIntoRepo(DATA_SOURCE, False)
 
         # Setup Labels
+        # I had to use wx.lib.stattext.GenStaticText instead of wx.StaticText to get the background color to update properly on Raspian.
         tableHeaders = wx.lib.stattext.GenStaticText(self, wx.ID_ANY, "Flight".ljust(7) + "  |  " + "Type".ljust(4) + "  |  " + "Alt".ljust(5) + "  |  " + "GS".ljust(3)+ "  |  " + "Dist", pos=(self.TABLE_X_OFFSET, self.TABLE_Y_OFFSET), size=(self.TABLE_X_WIDTH,self.TABLE_Y_ROW_HEIGHT))
         tableHeaders.SetFont(wx.Font(pointSize=11, family=wx.FONTFAMILY_DEFAULT, style=wx.NORMAL, weight=wx.FONTWEIGHT_NORMAL, faceName="Space Mono"))
         tableHeaders.SetForegroundColour((255,255,255))
@@ -60,6 +61,7 @@ class MainPanel(wx.Panel):
             self.planeTableRows[i].Bind(wx.EVT_LEFT_UP, self.OnClick)
             self.planeTableRows[i].Bind(wx.EVT_KEY_DOWN, self.OnKey)
 
+        #Add place holders for the details when you select a plane from the list.
         for i in range(self.NUMBER_OF_DETAIL_ROWS):
             self.planeDetailRows.append(TransparentText(self, wx.ID_ANY, "", pos=(self.DETAIL_X_OFFSET,self.DETAIL_Y_OFFSET+self.DETAIL_Y_ROW_HEIGHT*i), style = wx.ST_NO_AUTORESIZE | wx.TRANSPARENT_WINDOW, size =(self.DETAIL_X_WIDTH,self.DETAIL_Y_ROW_HEIGHT)))
             self.planeDetailRows[i].SetFont(wx.Font(pointSize=9, family=wx.FONTFAMILY_DEFAULT, style=wx.NORMAL, weight=wx.FONTWEIGHT_NORMAL, faceName="Space Mono"))
@@ -91,6 +93,7 @@ class MainPanel(wx.Panel):
             self.HidePlaneDetails()
             event.Skip()
         else:
+            #There is probably a better way but I find out what plane you clicked on by looking at the flight number and then finding it in the DB.
             label = event.GetEventObject().Label
             label = str(label).split("|")[0].strip()
             if label != "":
@@ -147,13 +150,11 @@ class MainPanel(wx.Panel):
         print("Got Key! " + str(key_code))
         if key_code == wx.WXK_ESCAPE or key_code == 81:
             print("Closing!")
+            #This doesn't always close the window... I'm not sure why. Help?
             p = wx.GetTopLevelParent(self)
             p.Close()
         else:
             event.Skip()
-
-    def DrawPlaneIndicators(self, plane_repo):
-        print("Do Nothing")
 
     def DrawSinglePlaneIndicator(self, bearing, distance, color, size, gc):
         distance = distance * self.RADAR_SCALING
@@ -183,6 +184,7 @@ class MainPanel(wx.Panel):
         dc.Clear()
         dc.DrawBitmap(self.bg, 0, 0)
         gc = wx.GraphicsContext.Create(dc)
+        #This will draw a dot for the planes current position (if within 45nm of the center) and an exponentially decaying "tail" of previous positions (also <45nm away).
         for plane in self.PlaneDataRepo.DB.values():
             for (i,prevDist) in enumerate(plane.PreviousDistance):
                 opacity = 255*exp(-(len(plane.PreviousDistance) - i)/100)
@@ -194,6 +196,7 @@ class MainPanel(wx.Panel):
 
 """
 Static text with transparent background
+From: https://www.keacher.com/994/transparent-static-text-in-wxpython/
 """
 
 import wx
