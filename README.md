@@ -10,5 +10,5 @@ at the top of Gui.py.
 
 Requires:
 * Python 3
-* wxPython
+* wxPython (I had trouble installing this with pip3, I used the precompiled wheel here: https://github.com/sctv/wxPython_arm71 )
 * dump1090
