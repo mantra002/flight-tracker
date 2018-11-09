@@ -4,10 +4,15 @@
 import json, urllib.request, requests, bs4, colorsys, random, re
 from math import sin, cos, sqrt, atan2, radians, degrees
 
+<<<<<<< HEAD
 # SET YOUR HOME LAT/LON HERE
 HOME_LAT = 0
 HOME_LON = 0
 
+=======
+HOME_LAT = 0
+HOME_LON = 0
+>>>>>>> 1ad8f7ad5c6031862ca159586f9d5d2b57898b4f
 EARTH_RADIUS = 6373.0 #KM
 
 class PlaneInfoRepo():
@@ -242,5 +247,9 @@ class PlaneInfo():
         self.Distance = round(distance * 0.539957,1)
 
     def GetFormattedString(self):
+<<<<<<< HEAD
         #Formats the plane data into a string used for the data table.
         return self.FlightNumber.ljust(7) + "  |  " + self.Equipment.ljust(4) + "  |  " + self.AltitudeFormatted.ljust(5) + "  |  " + str(self.Speed).ljust(3) + "  |  " + str(self.Distance)
+=======
+        return self.FlightNumber.ljust(7) + "  |  " + self.Equipment.ljust(4) + "  |  " + self.AltitudeFormatted.ljust(5) + "  |  " + str(self.Speed).ljust(3) + "  |  " + str(self.Distance)
+>>>>>>> 1ad8f7ad5c6031862ca159586f9d5d2b57898b4f
