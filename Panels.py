@@ -1,5 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
+# Flight-Tracker by Travis Hagen
 
 import wx, PlaneData
 import wx.lib.stattext

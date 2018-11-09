@@ -1,5 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
+# Flight-Tracker by Travis Hagen
 
 import json, urllib.request, requests, bs4, colorsys, random, re
 from math import sin, cos, sqrt, atan2, radians, degrees
